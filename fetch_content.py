@@ -4,6 +4,7 @@ from langchain_community.document_loaders import PyPDFLoader
 import pandas as pd
 from connections import pinecone_connection, openai_connection
 from openai import OpenAI
+import os
 
 
 
@@ -39,9 +40,8 @@ def storing_pinecone():
         df = fetch()
 
         # openai
-        key = openai_connection()
-        key = os.getenv('OPENAI_API_KEY')
-        openai_client = OpenAI(api_key=key)
+        api_key = os.environ.get('OPENAI_API_KEY')
+        openai_client = OpenAI(api_key=api_key)
 
         # Pinecone
         pinecone_api_key, index_name = pinecone_connection()
