@@ -1,6 +1,7 @@
 from openai import OpenAI
 from pinecone import Pinecone
 from connections import openai_connection, pinecone_connection
+import os
 
 
 def fetch_from_pinecone(text):
@@ -9,12 +10,13 @@ def fetch_from_pinecone(text):
     '''
     try:
         # Pinecone
-        pinecone_api_key, index_name = pinecone_connection()
+        pinecone_api_key = os.environ.get('PINECONE_API_KEY')
+        index_name =  os.environ.get('INDEX')
         pinecone = Pinecone(api_key=pinecone_api_key)
 
         # openai
-        key = openai_connection()
-        model = OpenAI(api_key=key)
+        api_key = os.environ.get('OPENAI_API_KEY')
+        model = OpenAI(api_key=api_key)
 
         # fetching data from pinecone
         index = pinecone.Index(name=index_name)
@@ -42,8 +44,8 @@ def fetch_from_pinecone(text):
 def generate_response(question: str):
 
     # openai
-    key = openai_connection()
-    openai_client = OpenAI(api_key=key)
+    api_key = os.environ.get('OPENAI_API_KEY')
+    openai_client = OpenAI(api_key=api_key)
     context = fetch_from_pinecone(question)
 
     # prompt to openai for generating analysis of sample QA
