@@ -4,7 +4,7 @@ from langchain_community.document_loaders import PyPDFLoader
 import pandas as pd
 from connections import pinecone_connection, openai_connection
 from openai import OpenAI
-import os
+
 
 
 def fetch():
