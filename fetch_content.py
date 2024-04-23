@@ -41,7 +41,7 @@ def storing_pinecone():
 
         # openai
         api_key = os.environ.get('OPENAI_API_KEY')
-        openai_client = OpenAI(api_key=api_key)
+        openai_client = OpenAI(api_key="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")
 
         # Pinecone
         pinecone_api_key, index_name = pinecone_connection()
